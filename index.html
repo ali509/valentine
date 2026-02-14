@@ -19,6 +19,86 @@
             overflow: hidden;
         }
 
+        /* ENVELOPE SCREEN */
+        .envelope-screen {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ffd6eb 0%, #ffe6f2 50%, #ffeef8 100%);
+            z-index: 1000;
+        }
+
+        .envelope-text-top {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .envelope-hint {
+            font-size: 0.95rem;
+            color: #777;
+            margin-top: 15px;
+        }
+
+        .envelope {
+            position: relative;
+            width: 280px;
+            height: 180px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        .envelope-base {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            background: #ffffff;
+            border-radius: 0 0 16px 16px;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(135deg, #ff6b9d, #ff4757);
+            clip-path: polygon(0 0, 100% 0, 50% 70%);
+            transform-origin: top;
+            transition: transform 0.6s ease;
+        }
+
+        .envelope-heart {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: #ffffff;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+        }
+
+        .envelope:hover .envelope-flap {
+            transform: translateY(-4px);
+        }
+
+        .open-text {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #ff4757;
+            font-weight: bold;
+            animation: pulse 1.4s ease-in-out infinite;
+        }
+
+        /* MAIN CARD */
         .container {
             position: relative;
             min-height: 100vh;
@@ -42,13 +122,15 @@
             position: relative;
             z-index: 10;
             background: rgba(255, 255, 255, 0.95);
-            padding: 60px 40px;
+            padding: 40px 40px 60px;
             border-radius: 30px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
             text-align: center;
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
-            animation: fadeIn 1s ease-in;
+            animation: fadeIn 0.8s ease-in;
+            display: none;
+            /* hidden until envelope is opened */
         }
 
         @keyframes fadeIn {
@@ -63,18 +145,33 @@
             }
         }
 
-        .from {
-            font-size: 1.2rem;
-            color: #888;
-            margin-bottom: 20px;
-            font-weight: normal;
+        .photo-wrapper {
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto 25px;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+            border: 4px solid #ffe6f2;
+        }
+
+        .photo-wrapper img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
         }
 
         .message {
             font-size: 3rem;
             color: #ff6b9d;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             font-weight: bold;
+        }
+
+        .sub-message {
+            font-size: 1.1rem;
+            color: #777;
+            margin-bottom: 20px;
         }
 
         .question {
@@ -104,7 +201,7 @@
         }
 
         .heart-icon {
-            margin: 40px 0;
+            margin: 30px 0 40px;
         }
 
         .heart {
@@ -158,6 +255,7 @@
             gap: 20px;
             justify-content: center;
             margin-top: 40px;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -185,6 +283,7 @@
             background: #f1f1f1;
             color: #666;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
         .no-btn:hover {
@@ -199,6 +298,13 @@
             color: #ff4757;
             min-height: 30px;
             animation: slideIn 0.5s ease;
+        }
+
+        .mini-message {
+            margin-top: 10px;
+            font-size: 1rem;
+            color: #666;
+            min-height: 20px;
         }
 
         @keyframes slideIn {
@@ -238,12 +344,30 @@
 </head>
 
 <body>
+    <!-- ENVELOPE SCREEN -->
+    <div class="envelope-screen" id="envelopeScreen">
+        <div class="envelope-text-top">A little something for my wife 💌</div>
+        <div class="envelope" id="envelope">
+            <div class="envelope-base"></div>
+            <div class="envelope-flap" id="envelopeFlap"></div>
+            <div class="envelope-heart">♥</div>
+        </div>
+        <div class="open-text">Tap to open your Valentine</div>
+        <div class="envelope-hint">(I promise it’s something sweet, not a bill 😌)</div>
+    </div>
+
+    <!-- MAIN CARD -->
     <div class="container">
         <div class="hearts-background"></div>
 
-        <div class="card">
-            <h2 class="from">Hussen asks...</h2>
+        <div class="card" id="mainCard">
+            <div class="photo-wrapper">
+                <img src="us.jpg" alt="Us together">
+            </div>
+
             <h1 class="message">Hey Saksina! 💕</h1>
+            <p class="sub-message">Another Valentine’s Day with my wife, and I’d still choose you in every lifetime. ❤️
+            </p>
             <h1 class="question">Will You Be My<br><span class="valentine">Valentine?</span></h1>
 
             <div class="heart-icon">
@@ -256,34 +380,98 @@
             </div>
 
             <p class="response" id="response"></p>
+            <p class="mini-message" id="miniMessage"></p>
         </div>
     </div>
 
+    <!-- Music for Yes -->
+    <audio id="yesMusic" src="yes-music.mp3"></audio>
+
     <script>
-        // Button interactions
+        const envelopeScreen = document.getElementById('envelopeScreen');
+        const envelope = document.getElementById('envelope');
+        const envelopeFlap = document.getElementById('envelopeFlap');
+        const mainCard = document.getElementById('mainCard');
+
         const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
         const response = document.getElementById('response');
+        const miniMessage = document.getElementById('miniMessage');
+        const yesMusic = document.getElementById('yesMusic');
+
+        let noClickCount = 0;
+
+        const noMessages = [
+            "Error 404: 'No' not found 😏",
+            "Are you sure? Think again… 👀",
+            "Ouch, my heart! Try the other button 🥺",
+            "System warning: 'No' is an invalid answer 🚫",
+            "Last chance before I start crying dramatically 😭",
+            "Okay now you’re just bullying me 😂",
+            "Fine, I’ll pretend I didn’t see that. Try again 😌",
+            "The 'No' button is getting tired…",
+            "No more 'No' for you! 🫵"
+        ];
+
+        const miniMessages = [
+            "Psst… the Yes button looks nicer, just saying 😌",
+            "Fun fact: People who click Yes are 100x cooler ✨",
+            "Legends say only soulmates click Yes 💘",
+            "Plot twist: You were always going to say Yes 😉"
+        ];
+
+        // Open envelope -> show card
+        envelope.addEventListener('click', () => {
+            envelopeFlap.style.transform = 'rotateX(-180deg)';
+
+            setTimeout(() => {
+                envelopeScreen.style.opacity = '0';
+                envelopeScreen.style.transition = 'opacity 0.5s ease';
+            }, 200);
+
+            setTimeout(() => {
+                envelopeScreen.style.display = 'none';
+                mainCard.style.display = 'block';
+            }, 700);
+        });
 
         yesBtn.addEventListener('click', () => {
-            response.textContent = 'Yay! I knew you\'d say yes! 💕🎉';
+            response.textContent = "Yay! I knew you'd say yes! 💕🎉";
             response.style.color = '#ff4757';
+            miniMessage.textContent = "Screenshot this, it’s going in our history forever 💑";
+
+            yesMusic.currentTime = 0;
+            yesMusic.play();
+
             createConfetti();
         });
 
         noBtn.addEventListener('click', () => {
-            response.textContent = 'Nice try! 😉💔';
+            noClickCount++;
+
+            const msgIndex = Math.min(noClickCount - 1, noMessages.length - 1);
+            response.textContent = noMessages[msgIndex];
             response.style.color = '#ff6b9d';
 
-            // Make the No button move away
+            const miniIndex = Math.floor(Math.random() * miniMessages.length);
+            miniMessage.textContent = miniMessages[miniIndex];
+
             const randomX = Math.random() * (window.innerWidth - 200);
             const randomY = Math.random() * (window.innerHeight - 100);
             noBtn.style.position = 'fixed';
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
+
+            if (noClickCount > 3 && noClickCount <= 6) {
+                const scale = 1 - (noClickCount - 3) * 0.15;
+                noBtn.style.transform = `scale(${scale})`;
+            } else if (noClickCount > 6) {
+                noBtn.style.display = 'none';
+                response.textContent = "Guess there's only one real option left now... 😌";
+                miniMessage.textContent = "Go on, click Yes. I’m waiting 💝";
+            }
         });
 
-        // Create floating hearts
         function createFloatingHeart() {
             const heart = document.createElement('div');
             heart.innerHTML = '♥';
@@ -304,7 +492,6 @@
             }, 7000);
         }
 
-        // Create confetti effect
         function createConfetti() {
             for (let i = 0; i < 50; i++) {
                 setTimeout(() => {
@@ -327,10 +514,8 @@
             }
         }
 
-        // Generate floating hearts continuously
         setInterval(createFloatingHeart, 500);
 
-        // Initial hearts
         for (let i = 0; i < 10; i++) {
             setTimeout(createFloatingHeart, i * 200);
         }

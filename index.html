@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Saksina 💖</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      color: #fff;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #ff9aeb 0%, #2b1055 40%, #12001f 100%);
+      position: relative;
+    }
+
+    /* Parallax heart layers */
+    .layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .layer.layer-back {
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,0.08) 0, transparent 60%),
+        radial-gradient(circle at 80% 10%, rgba(255,255,255,0.05) 0, transparent 55%);
+      filter: blur(1px);
+      animation: floatBack 30s linear infinite;
+    }
+    .layer.layer-mid {
+      animation: floatMid 18s linear infinite;
+    }
+    .layer.layer-front {
+      animation: floatFront 12s linear infinite;
+    }
+    .heart {
+      position: absolute;
+      font-size: 22px;
+      color: #ff80c0;
+      opacity: 0.7;
+      animation: heartRise 10s linear infinite;
+    }
+    @keyframes floatBack {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-30px, -60px, 0); }
+    }
+    @keyframes floatMid {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(30px, -40px, 0); }
+    }
+    @keyframes floatFront {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-40px, 40px, 0); }
+    }
+    @keyframes heartRise {
+      0% { transform: translateY(100vh) scale(0.7); opacity: 0; }
+      20% { opacity: 0.9; }
+      100% { transform: translateY(-10vh) scale(1.1); opacity: 0; }
+    }
+
+    /* Glass card */
+    .center-wrap {
+      position: relative;
+      z-index: 5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      width: min(420px, 100%);
+      padding: 24px 20px 28px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 198, 255, 0.2) 0, transparent 50%),
+        radial-gradient(circle at 100% 100%, rgba(130, 177, 255, 0.18) 0, transparent 55%);
+      opacity: 0.9;
+      z-index: -1;
+    }
+
+    .tag {
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-size: 1.8rem;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .sub {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.86);
+      margin-bottom: 22px;
+    }
+
+    /* Avatar ring with both photos */
+    .avatar-stack {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 18px;
+    }
+    .avatar-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: conic-gradient(from 220deg, #ff80c0, #ffea80, #8bc6ff, #ff80c0);
+      padding: 3px;
+      animation: spinRing 14s linear infinite;
+    }
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .avatar-inner img {
+      width: 70%;
+      height: 70%;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+    }
+    .avatar-inner img:nth-child(1) {
+      position: absolute;
+      left: 8%;
+      bottom: 8%;
+      transform: scale(1.05);
+    }
+    .avatar-inner img:nth-child(2) {
+      position: absolute;
+      right: 8%;
+      top: 8%;
+      transform: scale(1.05);
+    }
+    @keyframes spinRing {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Buttons */
+    .btn-row {
+      position: relative;
+      margin-top: 10px;
+      margin-bottom: 4px;
+      height: 56px;
+    }
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 12px 26px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      white-space: nowrap;
+    }
+    #yesBtn {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-120%);
+      background: linear-gradient(135deg, #00e1ff, #00ff9c);
+      color: #04101b;
+      box-shadow: 0 10px 22px rgba(0, 255, 188, 0.45);
+    }
+    #noBtn {
+      position: absolute;
+      left: 50%;
+      transform: translateX(20%);
+      background: rgba(255, 62, 116, 0.95);
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(255, 62, 116, 0.6);
+    }
+    button:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
+    }
+
+    .hint {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.75);
+      margin-top: 8px;
+    }
+
+    /* Hidden collage section */
+    .collage {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      margin-top: 18px;
+    }
+    .collage-title {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .collage-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 80px;
+      gap: 6px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 6px;
+    }
+    .collage-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+    .collage-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+    .collage-item:nth-child(1) { grid-column: span 2; }
+    .collage-item:nth-child(2) { grid-row: span 2; }
+    .collage-item:nth-child(5) { grid-column: span 2; }
+
+    .collage-item::after {
+      content: "💕";
+      position: absolute;
+      bottom: 4px;
+      right: 6px;
+      font-size: 0.9rem;
+      text-shadow: 0 0 6px rgba(0,0,0,0.8);
+    }
+    .collage-item:hover img {
+      transform: scale(1.12);
+    }
+
+    .love-line {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.9);
+    }
+    .love-line span {
+      color: #ffdf8a;
+      font-weight: 600;
+    }
+
+    @media (max-width: 420px) {
+      h1 { font-size: 1.5rem; }
+      .avatar-stack { width: 100px; height: 100px; }
+      .collage-grid { grid-auto-rows: 70px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Parallax heart layers -->
+  <div class="layer layer-back" id="layerBack"></div>
+  <div class="layer layer-mid" id="layerMid"></div>
+  <div class="layer layer-front" id="layerFront"></div>
+
+  <div class="center-wrap">
+    <div class="card" id="mainCard">
+      <div class="tag">For my wife · Saksina</div>
+
+      <div class="avatar-stack">
+        <div class="avatar-ring">
+          <div class="avatar-inner">
+            <!-- Replace these with your real images -->
+            <img src="YOUR_PHOTO_URL_HERE" alt="You">
+            <img src="SAKSINA_PHOTO_URL_HERE" alt="Saksina">
+          </div>
+        </div>
+      </div>
+
+      <h1>Happy Valentine’s Day,<br/>Saksina 💘</h1>
+      <p class="sub">
+        One simple question from <strong>your husband</strong>:
+        <br/>
+        <span style="opacity:0.9;">“Be mine? (Again and again.)”</span>
+      </p>
+
+      <div class="btn-row">
+        <button id="yesBtn">Yes, obviously 💖</button>
+        <button id="noBtn">No 😏</button>
+      </div>
+
+      <p class="hint">Tip: Trying to press “No” may cause extreme cuteness levels.</p>
+
+      <!-- Hidden collage / second screen -->
+      <div class="collage" id="collage">
+        <div class="collage-title">Us, in one little galaxy:</div>
+        <div class="collage-grid">
+          <!-- You can repeat or vary photos; all local/URL/base64 work -->
+          <div class="collage-item">
+            <img src="SAKSINA_PHOTO_URL_HERE" alt="Saksina 1">
+          </div>
+          <div class="collage-item">
+            <img src="YOUR_PHOTO_URL_HERE" alt="You 1">
+          </div>
+          <div class="collage-item">
+            <img src="SAKSINA_PHOTO_URL_HERE" alt="Saksina 2">
+          </div>
+          <div class="collage-item">
+            <img src="YOUR_PHOTO_URL_HERE" alt="You 2">
+          </div>
+          <div class="collage-item">
+            <img src="SAKSINA_PHOTO_URL_HERE" alt="Together">
+          </div>
+        </div>
+        <p class="love-line">
+          Dear <span>Saksina</span>, thanks for choosing “Yes” every day.
+          Today you’re not allowed to say “No” to extra hugs. 💞
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Floating hearts in separate layers for depth
+    function spawnHeart(layer) {
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.textContent = "💖";
+      h.style.left = Math.random() * 100 + "vw";
+      h.style.fontSize = (18 + Math.random() * 12) + "px";
+      h.style.animationDuration = (7 + Math.random() * 5) + "s";
+      layer.appendChild(h);
+      setTimeout(() => h.remove(), 12000);
+    }
+
+    const back = document.getElementById("layerBack");
+    const mid = document.getElementById("layerMid");
+    const front = document.getElementById("layerFront");
+
+    setInterval(() => spawnHeart(back), 900);
+    setInterval(() => spawnHeart(mid), 700);
+    setInterval(() => spawnHeart(front), 500);
+
+    // Dodging "No" button logic
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const card = document.getElementById("mainCard");
+    const collage = document.getElementById("collage");
+
+    let dodgeSpeed = 70; // px step
+    let dodgeCount = 0;
+
+    function moveNoButton() {
+      const cardRect = card.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = cardRect.width - btnRect.width - 16;
+      const maxY = 56; // keep in row area
+
+      let newX = Math.random() * maxX;
+      let newY = Math.random() * maxY;
+
+      dodgeSpeed = Math.min(dodgeSpeed + 15, 200);
+      dodgeCount++;
+
+      noBtn.style.transition = "transform 0.12s ease-out";
+      noBtn.style.transform = `translate(${newX}px, ${-8 + newY}px)`;
+
+      if (dodgeCount % 3 === 0) {
+        speakText("Nice try, Mrs. Saksina. You can't say no today.");
+      }
+    }
+
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveNoButton();
+    });
+
+    noBtn.addEventListener("mouseover", (e) => {
+      // Avoid firing on mobile where hover is weird
+      if (matchMedia("(hover: hover)").matches) {
+        moveNoButton();
+      }
+    });
+
+    // YES button click logic
+    yesBtn.addEventListener("click", () => {
+      speakText("Happy Valentine's Day, Saksina. You're my Valentine, dummy, now and always.");
+      collage.style.display = "block";
+      requestAnimationFrame(() => {
+        collage.style.opacity = "1";
+      });
+    });
+
+    // Speech synthesis
+    function speakText(text) {
+      if (!("speechSynthesis" in window)) return;
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = "en-IN";
+      utter.rate = 0.96;
+      utter.pitch = 1.1;
+      speechSynthesis.cancel();
+      speechSynthesis.speak(utter);
+    }
+
+    // Small touch: tap card to replay message after Yes
+    card.addEventListener("click", () => {
+      if (collage.style.display === "block") {
+        speakText("Reminder: You chose yes, so you owe me one extra kiss today, Madam Saksina.");
+      }
+    });
+  </script>
+</body>
+</html>
